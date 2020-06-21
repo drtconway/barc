@@ -110,7 +110,7 @@ options:
   barcode-type: code128
   style: /style/L7160
 barcodes:
-- &ROW [&CB code: CHICKBRST, *CB, *CB]
+- &ROW [&CB {code: CHICKBRST, label: 'Chicken Breast'}, *CB, *CB]
 - *ROW
 - *ROW
 - *ROW
@@ -122,4 +122,46 @@ barcodes:
 With this brief form, the above YAML yields a full sheet of 21 (3x7)
 L7160 labels.  (Note we switched between the _layout_ form and the
 _inline_ form of the YAML for the row.)
+
+## Docker
+
+We have packaged up barc in a docker image with prince to make it
+really easy to make barcode labels.  It has pre-packaged styles in
+`/style/<<format>>`, and by default runs on each YAML file in `/data` to
+create the HTML and PDF files for the labels specified in the YAML file.
+
+To run it, you will want to use _volumes_ to add your YAML files to the
+container, and to pick up the generated files.
+
+For example:
+```
+$ ls -lh my-data
+total 4.0K
+-rw-rw-r-- 1 tom tom 159 Jun 21 20:38 chicken.yaml
+$ cat my-data/chicken.yaml
+version: '1'
+options:
+  barcode-type: code128
+  style: /style/L7160
+barcodes:
+- &ROW [&CB {code: CHICKBRST, label: 'Chicken Breast'}, *CB, *CB]
+- *ROW
+- *ROW
+- *ROW
+- *ROW
+- *ROW
+- *ROW
+$ docker run -v ${PWD}/my-data/:/data/ drtomc/barc
+$ ls -lh my-data/
+total 56K
+-rw-r--r-- 1 root root 26K Jun 21 20:47 chicken.html
+-rw-r--r-- 1 root root 22K Jun 21 20:47 chicken.pdf
+-rw-rw-r-- 1 tom  tom  186 Jun 21 20:47 chicken.yaml
+```
+
+Note you may run into permissions problems, and need to do something like the following:
+
+```
+$ sudo chown tom:tom my-data
+```
 
