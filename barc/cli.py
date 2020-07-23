@@ -6,13 +6,16 @@ Usage:
 Options:
     -l --list       list the available barcode types
     -n --check      check the validity of the specification but don't produce html output
+    -p --pdf        produce a pdf (requires prince to be installed)
     -o FILE         specify an output file ('-' for stdout) [default: -]
 """
 
 import base64
-import io
-import sys
 import hashlib
+import io
+import os
+import subprocess
+import sys
 import uuid
 
 import docopt
@@ -24,6 +27,13 @@ import dominate
 from dominate.tags import *
 
 version = '0.1.0'
+
+def smart_open(fn, mode = "r"):
+    if fn == "-" and mode == "r":
+        return sys.stdin
+    if fn == "-" and mode == "w":
+        return sys.stdout
+    return open(fn, mode)
 
 def make_barcode(kind, code):
     bio = io.BytesIO()
@@ -37,7 +47,7 @@ def rndCode():
     return d.hexdigest()[:12]
 
 def check(spec):
-    
+
     # Version check
     #
     if 'version' not in spec:
@@ -141,7 +151,24 @@ def main():
                                     p(l)
                             else:
                                 p(lb)
-    print(doc)
+
+    if opts['--pdf']:
+        t = "/tmp"
+        if  "TMPDIR" in os.environ:
+            t = os.environ["TMPDIR"]
+        u = str(uuid.uuid4())
+        htmlFn = f"{t}/{u}.html"
+    else:
+        htmlFn = opts['-o']
+
+    with smart_open(htmlFn, "w") as htmlFile:
+        print(doc, file=htmlFile)
+
+    if opts['--pdf']:
+        cmd = ["prince", htmlFn]
+        if opts['-o'] != "-":
+            cmd  += ["-o", opts['-o']]
+        subprocess.run(cmd, capture_output=True)
 
 if __name__ == '__main__':
     main()
