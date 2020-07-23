@@ -1,0 +1,12 @@
+version: '1'
+options:
+  barcode-type: Code128
+  style: L7160
+barcodes:
+- &ROW1 [&BM {code: 8WBOLOGNESEMINCE, label: ['Bolognese Mince', "\xA0", '_____ g  ____ / ____ / ____']}, *BM, *BM]
+- *ROW1
+- *ROW1
+- &ROW2 [&LM {code: 8WLAMBMINCE, label: ['Lamb Mince', "\xA0", '_____ g  ____ / ____ / ____']}, *LM, *LM]
+- *ROW2
+- &ROW3 [&PM {code: 8WPORKMINCE, label: ['Pork Mince', "\xA0", '_____ g  ____ / ____ / ____']}, *PM, *PM]
+- *ROW3

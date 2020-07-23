@@ -1,0 +1,12 @@
+version: '1'
+options:
+  barcode-type: Code128
+  style: L7160
+barcodes:
+- &ROW [&BM {code: 8WBEEFMINCE, label: ['Beef Mince', "\xA0", '_____ g  ____ / ____ / ____']}, *BM, *BM]
+- *ROW
+- *ROW
+- *ROW
+- *ROW
+- *ROW
+- *ROW

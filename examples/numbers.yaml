@@ -1,0 +1,47 @@
+version: '1'
+options:
+  barcode-type: Code128
+  style: style/L7160
+barcodes:
+- - code: BBUDDY-NUM-CLR,
+    label: 'clear'
+  - code: BBUDDY-NUM-QUANTITY,
+    label: 'quantity'
+  - code: BBUDDY-NUM-PRICE,
+    label: 'price'
+- - code: BBUDDY-NUM-1000,
+    label: '1000'
+  - code: BBUDDY-NUM-2000,
+    label: '2000'
+  - code: BBUDDY-NUM-5000,
+    label: '5000'
+- - code: BBUDDY-NUM-100,
+    label: '100'
+  - code: BBUDDY-NUM-200,
+    label: '200'
+  - code: BBUDDY-NUM-500,
+    label: '500'
+- - code: BBUDDY-NUM-10,
+    label: '10'
+  - code: BBUDDY-NUM-20,
+    label: '20'
+  - code: BBUDDY-NUM-50,
+    label: '50'
+- - code: BBUDDY-NUM-1,
+    label: '1'
+  - code: BBUDDY-NUM-2,
+    label: '2'
+  - code: BBUDDY-NUM-5,
+    label: '5'
+- - code: BBUDDY-NUM-0.1,
+    label: '0.1'
+  - code: BBUDDY-NUM-0.2,
+    label: '0.2'
+  - code: BBUDDY-NUM-0.5,
+    label: '0.5'
+- - code: BBUDDY-NUM-0.01,
+    label: '0.01'
+  - code: BBUDDY-NUM-0.02,
+    label: '0.02'
+  - code: BBUDDY-NUM-0.05,
+    label: '0.05'
