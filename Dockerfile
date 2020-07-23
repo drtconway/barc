@@ -8,6 +8,7 @@ RUN apt update -y && apt install -y python3 python3-pip wget && \
     mkdir /data
 ADD style /style
 ADD examples /examples
+ADD README.md /install/README.md
 ADD setup.py /install/setup.py
 ADD barc /install/barc
 RUN cd /install && \
